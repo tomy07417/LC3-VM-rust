@@ -1,10 +1,10 @@
 mod architecture;
 mod helper_funcs;
 mod op;
-mod step;
 mod run;
+mod step;
 
-use crate::architecture::{Register, CondFlag, VM, START_PC};
+use crate::architecture::{CondFlag, Register, START_PC, VM};
 use crate::run::run;
 
 fn main() {

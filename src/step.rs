@@ -1,5 +1,5 @@
 use crate::architecture::{Register, VM};
-use crate::op::{decode_opcode, trap, OpCode};
+use crate::op::{OpCode, decode_opcode, trap};
 
 /// Execute a single fetch/decode/dispatch cycle.
 pub fn step(vm: &mut VM) {
@@ -13,39 +13,24 @@ pub fn step(vm: &mut VM) {
     let op: u16 = decode_opcode(instr);
 
     match op {
-        x if OpCode::Add == x => {
-        }
-        x if OpCode::And == x => {
-        }
-        x if OpCode::Not == x => {
-        }
-        x if OpCode::Br == x => {
-        }
-        x if OpCode::Jmp == x => {
-        }
-        x if OpCode::Jsr == x => {
-        }
-        x if OpCode::Ld == x => {
-        }
-        x if OpCode::Ldi == x => {
-        }
-        x if OpCode::Ldr == x => {
-        }
-        x if OpCode::Lea == x => {
-        }
-        x if OpCode::St == x => {
-        }
-        x if OpCode::Sti == x => {
-        }
-        x if OpCode::Str == x => {
-        }
+        x if OpCode::Add == x => {}
+        x if OpCode::And == x => {}
+        x if OpCode::Not == x => {}
+        x if OpCode::Br == x => {}
+        x if OpCode::Jmp == x => {}
+        x if OpCode::Jsr == x => {}
+        x if OpCode::Ld == x => {}
+        x if OpCode::Ldi == x => {}
+        x if OpCode::Ldr == x => {}
+        x if OpCode::Lea == x => {}
+        x if OpCode::St == x => {}
+        x if OpCode::Sti == x => {}
+        x if OpCode::Str == x => {}
         x if OpCode::Trap == x => {
             trap(vm, instr);
         }
-        x if OpCode::Res == x => {
-        }
-        x if OpCode::Rti == x => {
-        }
+        x if OpCode::Res == x => {}
+        x if OpCode::Rti == x => {}
         _ => {}
     }
 }
