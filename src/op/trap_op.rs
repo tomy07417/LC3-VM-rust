@@ -9,19 +9,14 @@ pub fn trap(vm: &mut VM, instr: u16) {
     // extract the 8-bit trap vector
     match instr & 0x00FF {
         x if TrapCode::Getc == x => {
-            return;
         }
         x if TrapCode::Out == x => {
-            return;
         }
         x if TrapCode::Puts == x => {
-            return;
         }
         x if TrapCode::In == x => {
-            return;
         }
         x if TrapCode::Putsp == x => {
-            return;
         }
         x if TrapCode::Halt == x => {
             vm.shut_down();

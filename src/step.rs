@@ -14,52 +14,37 @@ pub fn step(vm: &mut VM) {
 
     match op {
         x if OpCode::Add == x => {
-            return;
         }
         x if OpCode::And == x => {
-            return;
         }
         x if OpCode::Not == x => {
-            return;
         }
         x if OpCode::Br == x => {
-            return;
         }
         x if OpCode::Jmp == x => {
-            return;
         }
         x if OpCode::Jsr == x => {
-            return;
         }
         x if OpCode::Ld == x => {
-            return;
         }
         x if OpCode::Ldi == x => {
-            return;
         }
         x if OpCode::Ldr == x => {
-            return;
         }
         x if OpCode::Lea == x => {
-            return;
         }
         x if OpCode::St == x => {
-            return;
         }
         x if OpCode::Sti == x => {
-            return;
         }
         x if OpCode::Str == x => {
-            return;
         }
         x if OpCode::Trap == x => {
             trap(vm, instr);
         }
         x if OpCode::Res == x => {
-            return;
         }
         x if OpCode::Rti == x => {
-            return;
         }
         _ => {}
     }
