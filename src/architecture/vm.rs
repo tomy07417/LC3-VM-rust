@@ -1,7 +1,26 @@
-use crate::architecture::registers::Register;
+use crate::architecture::Register;
 
 const MEMORY_SIZE: usize = 1 << 16;
 pub struct VM {
-    reg: [u16; Register::COUNT as usize], // Registers including PC and COND
-    memory: [u8; MEMORY_SIZE],            // Memory
+    pub reg: [u16; Register::COUNT as usize], // Registers including PC and COND
+    pub memory: [u8; MEMORY_SIZE],            // Memory
+}
+
+impl VM {
+    pub fn new() -> Self {
+        VM {
+            reg: [0; Register::COUNT as usize],
+            memory: [0; MEMORY_SIZE],
+        }
+    }
+
+    #[inline]
+    pub fn reg(&self, r: Register) -> u16 {
+        self.reg[r as usize]
+    }
+
+    #[inline]
+    pub fn set_reg(&mut self, r: Register, val: u16) {
+        self.reg[r as usize] = val;
+    }
 }
