@@ -1,5 +1,5 @@
 use crate::architecture::{Register, VM};
-use crate::op::{trap, OpCode};
+use crate::op::{decode_opcode, trap, OpCode};
 
 /// Execute a single fetch/decode/dispatch cycle.
 pub fn step(vm: &mut VM) {
@@ -10,7 +10,7 @@ pub fn step(vm: &mut VM) {
         vm.reg(Register::PC.into()).wrapping_add(1),
     );
 
-    let op: u16 = instr >> 12;
+    let op: u16 = decode_opcode(instr);
 
     match op {
         x if OpCode::Add == x => {
@@ -62,5 +62,36 @@ pub fn step(vm: &mut VM) {
             return;
         }
         _ => {}
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::step;
+    use crate::architecture::{Register, START_PC, VM};
+
+    #[test]
+    fn halt_instruction_stops_vm() {
+        let mut vm = VM::new();
+        vm.write_mem(START_PC, 0xF025);
+
+        step(&mut vm);
+
+        assert!(!vm.is_running());
+    }
+
+    #[test]
+    fn pc_increments_between_steps() {
+        let mut vm = VM::new();
+        vm.write_mem(START_PC, 0x1000);
+        vm.write_mem(START_PC.wrapping_add(1), 0x1000);
+
+        let pc_before = vm.reg(Register::PC.into());
+
+        step(&mut vm);
+        assert_eq!(vm.reg(Register::PC.into()), pc_before.wrapping_add(1));
+
+        step(&mut vm);
+        assert_eq!(vm.reg(Register::PC.into()), pc_before.wrapping_add(2));
     }
 }

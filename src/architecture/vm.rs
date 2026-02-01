@@ -49,4 +49,9 @@ impl VM {
     pub fn read_mem(&self, address: u16) -> u16 {
         self.memory[address as usize]
     }
+
+    /// Write a 16-bit value to memory.
+    pub fn write_mem(&mut self, address: u16, value: u16) {
+        self.memory[address as usize] = value;
+    }
 }

@@ -20,6 +20,11 @@ pub enum OpCode {
     Trap, /* execute trap */
 }
 
+/// Decode the opcode bits (bits 15..12) from an instruction word.
+pub fn decode_opcode(instr: u16) -> u16 {
+    instr >> 12
+}
+
 impl PartialEq<u16> for OpCode {
     fn eq(&self, other: &u16) -> bool {
         *self as u16 == *other
@@ -52,6 +57,7 @@ impl From<u16> for OpCode {
 
 #[cfg(test)]
 mod tests {
+    use super::decode_opcode;
     use super::OpCode;
 
     #[test]
@@ -72,5 +78,13 @@ mod tests {
         assert_eq!(OpCode::Res as u16, 0xD);
         assert_eq!(OpCode::Lea as u16, 0xE);
         assert_eq!(OpCode::Trap as u16, 0xF);
+    }
+
+    #[test]
+    fn decode_opcode_extracts_upper_nibble() {
+        for value in 0x0u16..=0xFu16 {
+            let instr = (value << 12) | 0x00A;
+            assert_eq!(decode_opcode(instr), value);
+        }
     }
 }
