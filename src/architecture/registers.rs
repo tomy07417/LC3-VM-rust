@@ -9,6 +9,7 @@ pub enum Register {
     R7,
     PC,   // Program Counter
     COND, // Condition Flags
+<<<<<<< HEAD
 }
 
 pub struct Registers {
@@ -69,4 +70,7 @@ impl Default for Registers {
             cond: 0,
         }
     }
+=======
+    COUNT
+>>>>>>> 89b30a7 (feat: implement core architecture and helper functions for LC-3 VM)
 }
