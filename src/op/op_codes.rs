@@ -57,8 +57,8 @@ impl From<u16> for OpCode {
 
 #[cfg(test)]
 mod tests {
-    use super::OpCode;
     use super::decode_opcode;
+    use super::OpCode;
 
     #[test]
     fn opcode_ordinals_match_lc3_order() {

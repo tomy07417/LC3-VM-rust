@@ -1,5 +1,7 @@
+use std::io::Write;
+
 use crate::architecture::{Register, VM};
-use crate::op::TrapCode;
+use crate::op::trap::TrapCode;
 
 /// Execute a TRAP instruction, dispatching by trap vector.
 pub fn trap(vm: &mut VM, instr: u16) {
@@ -14,6 +16,8 @@ pub fn trap(vm: &mut VM, instr: u16) {
         x if TrapCode::In == x => {}
         x if TrapCode::Putsp == x => {}
         x if TrapCode::Halt == x => {
+            println!("HALT");
+            std::io::stdout().flush().unwrap();
             vm.shut_down();
         }
         _ => {

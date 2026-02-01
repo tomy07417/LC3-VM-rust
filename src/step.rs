@@ -1,5 +1,5 @@
 use crate::architecture::{Register, VM};
-use crate::op::{OpCode, decode_opcode, trap};
+use crate::op::{decode_opcode, load::*, store::*, trap::trap, OpCode};
 
 /// Execute a single fetch/decode/dispatch cycle.
 pub fn step(vm: &mut VM) {
@@ -19,13 +19,27 @@ pub fn step(vm: &mut VM) {
         x if OpCode::Br == x => {}
         x if OpCode::Jmp == x => {}
         x if OpCode::Jsr == x => {}
-        x if OpCode::Ld == x => {}
-        x if OpCode::Ldi == x => {}
-        x if OpCode::Ldr == x => {}
-        x if OpCode::Lea == x => {}
-        x if OpCode::St == x => {}
-        x if OpCode::Sti == x => {}
-        x if OpCode::Str == x => {}
+        x if OpCode::Ld == x => {
+            load(vm, instr);
+        }
+        x if OpCode::Ldi == x => {
+            load_indirect(vm, instr);
+        }
+        x if OpCode::Ldr == x => {
+            load_register(vm, instr);
+        }
+        x if OpCode::Lea == x => {
+            load_effective_address(vm, instr);
+        }
+        x if OpCode::St == x => {
+            store(vm, instr);
+        }
+        x if OpCode::Sti == x => {
+            store_indirect(vm, instr);
+        }
+        x if OpCode::Str == x => {
+            store_register(vm, instr);
+        }
         x if OpCode::Trap == x => {
             trap(vm, instr);
         }

@@ -6,7 +6,7 @@
 ///
 /// # Examples
 /// ```
-/// use lc3_vm_rust::helper_funcs::sign_extend::sign_extend;
+/// use lc3_vm_rust::helper_funcs::sign_extend;
 ///
 /// assert_eq!(sign_extend(0b0_1111, 5), 0b0_1111);
 /// assert_eq!(sign_extend(0b1_0000, 5), 0xFFF0);
@@ -15,7 +15,7 @@ pub fn sign_extend(x: u16, bit_count: u16) -> u16 {
     if (x >> (bit_count - 1)) & 1 == 1 {
         // Negative number
         x | (0xFFFF << bit_count) // 11111... (16 bits) shifted left by bit_count
-    // Anded to x to fill in the leading bits with 1s
+                                  // Anded to x to fill in the leading bits with 1s
     } else {
         // Positive number
         x
