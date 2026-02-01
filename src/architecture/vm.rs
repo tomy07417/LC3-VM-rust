@@ -55,3 +55,9 @@ impl VM {
         self.memory[address as usize] = value;
     }
 }
+
+impl Default for VM {
+    fn default() -> Self {
+        Self::new()
+    }
+}

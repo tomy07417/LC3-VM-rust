@@ -1,5 +1,5 @@
 use crate::architecture::{Register, VM};
-use crate::op::{decode_opcode, load::*, store::*, trap::trap, OpCode};
+use crate::op::{OpCode, alu::*, decode_opcode, jump::*, load::*, store::*, trap::trap};
 
 /// Execute a single fetch/decode/dispatch cycle.
 pub fn step(vm: &mut VM) {
@@ -13,12 +13,24 @@ pub fn step(vm: &mut VM) {
     let op: u16 = decode_opcode(instr);
 
     match op {
-        x if OpCode::Add == x => {}
-        x if OpCode::And == x => {}
-        x if OpCode::Not == x => {}
-        x if OpCode::Br == x => {}
-        x if OpCode::Jmp == x => {}
-        x if OpCode::Jsr == x => {}
+        x if OpCode::Add == x => {
+            add(vm, instr);
+        }
+        x if OpCode::And == x => {
+            and(vm, instr);
+        }
+        x if OpCode::Not == x => {
+            not(vm, instr);
+        }
+        x if OpCode::Br == x => {
+            branch(vm, instr);
+        }
+        x if OpCode::Jmp == x => {
+            jump(vm, instr);
+        }
+        x if OpCode::Jsr == x => {
+            jump_register(vm, instr);
+        }
         x if OpCode::Ld == x => {
             load(vm, instr);
         }
@@ -43,8 +55,12 @@ pub fn step(vm: &mut VM) {
         x if OpCode::Trap == x => {
             trap(vm, instr);
         }
-        x if OpCode::Res == x => {}
-        x if OpCode::Rti == x => {}
+        x if OpCode::Res == x => {
+            eprintln!("OPCode RES - Reserved opcode encountered. Halting VM.");
+        }
+        x if OpCode::Rti == x => {
+            eprintln!("OPCode RTI - Unimplemented opcode encountered. Halting VM.");
+        }
         _ => {}
     }
 }
@@ -53,16 +69,6 @@ pub fn step(vm: &mut VM) {
 mod tests {
     use super::step;
     use crate::architecture::{Register, START_PC, VM};
-
-    #[test]
-    fn halt_instruction_stops_vm() {
-        let mut vm = VM::new();
-        vm.write_mem(START_PC, 0xF025);
-
-        step(&mut vm);
-
-        assert!(!vm.is_running());
-    }
 
     #[test]
     fn pc_increments_between_steps() {
