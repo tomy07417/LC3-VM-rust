@@ -1,6 +1,10 @@
 use crate::architecture::{Register, VM};
 use crate::helper_funcs::{sign_extend, update_flags};
 
+/// Execute the LD instruction (PC-relative load).
+///
+/// Loads the memory word at `PC + offset9` into the destination register and
+/// updates condition flags.
 pub fn load(vm: &mut VM, instr: u16) {
     // Extract bits 9-11 - destination register (DR)
     let dr: u16 = (instr >> 9) & 0x7;
