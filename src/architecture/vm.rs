@@ -3,7 +3,7 @@ use crate::architecture::Register;
 const MEMORY_SIZE: usize = 1 << 16;
 pub struct VM {
     pub reg: [u16; Register::COUNT as usize], // Registers including PC and COND
-    pub memory: [u8; MEMORY_SIZE],            // Memory
+    pub memory: [u16; MEMORY_SIZE],            // Memory
 }
 
 impl VM {
