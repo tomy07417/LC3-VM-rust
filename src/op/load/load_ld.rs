@@ -1,4 +1,4 @@
-use crate::architecture::{VM, Register};
+use crate::architecture::{Register, VM};
 use crate::helper_funcs::{sign_extend, update_flags};
 
 pub fn load(vm: &mut VM, instr: u16) {
@@ -9,6 +9,6 @@ pub fn load(vm: &mut VM, instr: u16) {
     let pc = vm.reg(Register::PC.into());
 
     // Store in dr and update flags
-    vm.set_reg(dr.into(), vm.read_mem(pc + pc_offset));
+    vm.set_reg(dr.into(), vm.read_mem(pc.wrapping_add(pc_offset)));
     update_flags(dr, vm);
 }
