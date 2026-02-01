@@ -1,12 +1,12 @@
 mod load_ld;
 mod load_ldi;
-mod load_lea;
 mod load_ldr;
+mod load_lea;
 
 pub use load_ld::load;
 pub use load_ldi::load_indirect;
-pub use load_lea::load_effective_address;
 pub use load_ldr::load_register;
+pub use load_lea::load_effective_address;
 
 #[cfg(test)]
 mod tests {
