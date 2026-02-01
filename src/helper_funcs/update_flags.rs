@@ -16,17 +16,17 @@ use crate::architecture::{CondFlag, Register, VM};
 /// };
 ///
 /// update_flags(0, &mut vm);
-/// assert_eq!(vm.reg(Register::Cond), CondFlag::Zro as u16);
+/// assert_eq!(vm.reg(Register::Cond), CondFlag::Zro);
 /// ```
 pub fn update_flags(r: u16, vm: &mut VM) {
     if r == 0 {
-        vm.set_reg(Register::Cond, CondFlag::Zro as u16);
+        vm.set_reg(Register::Cond.into(), CondFlag::Zro.into());
     } else if r >> 15 == 1 {
         // Is negative
-        vm.set_reg(Register::Cond, CondFlag::Neg as u16);
+        vm.set_reg(Register::Cond.into(), CondFlag::Neg.into());
     } else {
         // Is positive
-        vm.set_reg(Register::Cond, CondFlag::Pos as u16);
+        vm.set_reg(Register::Cond.into(), CondFlag::Pos.into());
     }
 }
 
@@ -41,7 +41,7 @@ mod tests {
 
         update_flags(0, &mut vm);
 
-        assert_eq!(vm.reg(Register::Cond), CondFlag::Zro as u16);
+        assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Zro.into());
     }
 
     #[test]
@@ -51,7 +51,7 @@ mod tests {
 
         update_flags(0x8000, &mut vm);
 
-        assert_eq!(vm.reg(Register::Cond), CondFlag::Neg as u16);
+        assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Neg.into());
     }
 
     #[test]
@@ -61,6 +61,6 @@ mod tests {
 
         update_flags(0x0001, &mut vm);
 
-        assert_eq!(vm.reg(Register::Cond), CondFlag::Pos as u16);
+        assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Pos.into());
     }
 }

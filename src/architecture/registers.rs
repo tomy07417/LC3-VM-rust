@@ -1,3 +1,7 @@
+const START_PC: u16 = 0x3000;
+
+/// LC-3 register indices.
+#[repr(usize)]
 #[derive(Copy, Clone, Debug)]
 pub enum Register {
     R0 = 0,
@@ -11,6 +15,12 @@ pub enum Register {
     PC,   // Program Counter
     Cond, // Condition Flags
     Count,
+}
+
+impl From<Register> for usize {
+    fn from(reg: Register) -> Self {
+        reg as usize
+    }
 }
 
 #[cfg(test)]

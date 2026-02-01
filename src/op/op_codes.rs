@@ -1,3 +1,6 @@
+/// LC-3 instruction opcode (upper 4 bits of the instruction word).
+#[repr(u16)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum OpCode {
     Br,   /* branch */
     Add,  /* add  */
@@ -15,6 +18,36 @@ pub enum OpCode {
     Res,  /* reserved (unused) */
     Lea,  /* load effective address */
     Trap, /* execute trap */
+}
+
+impl PartialEq<u16> for OpCode {
+    fn eq(&self, other: &u16) -> bool {
+        *self as u16 == *other
+    }
+}
+
+impl From<u16> for OpCode {
+    fn from(value: u16) -> Self {
+        match value {
+            0x0 => OpCode::Br,
+            0x1 => OpCode::Add,
+            0x2 => OpCode::Ld,
+            0x3 => OpCode::St,
+            0x4 => OpCode::Jsr,
+            0x5 => OpCode::And,
+            0x6 => OpCode::Ldr,
+            0x7 => OpCode::Str,
+            0x8 => OpCode::Rti,
+            0x9 => OpCode::Not,
+            0xA => OpCode::Ldi,
+            0xB => OpCode::Sti,
+            0xC => OpCode::Jmp,
+            0xD => OpCode::Res,
+            0xE => OpCode::Lea,
+            0xF => OpCode::Trap,
+            _ => panic!("Invalid opcode value: {}", value),
+        }
+    }
 }
 
 #[cfg(test)]
