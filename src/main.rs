@@ -1,6 +1,6 @@
 mod architecture;
-mod op_codes;
 mod helper_funcs;
+mod op_codes;
 
 fn main() {
     println!("Hello, world!");
