@@ -1,5 +1,5 @@
 use crate::architecture::{Register, VM};
-use crate::op::{OpCode, decode_opcode, trap};
+use crate::op::{OpCode, decode_opcode, trap::trap};
 
 /// Execute a single fetch/decode/dispatch cycle.
 pub fn step(vm: &mut VM) {
