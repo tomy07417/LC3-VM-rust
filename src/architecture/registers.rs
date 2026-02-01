@@ -9,8 +9,8 @@ pub enum Register {
     R6,
     R7,
     PC,   // Program Counter
-    COND, // Condition Flags
-    COUNT,
+    Cond, // Condition Flags
+    Count,
 }
 
 #[cfg(test)]
@@ -28,7 +28,7 @@ mod tests {
         assert_eq!(Register::R6 as usize, 6);
         assert_eq!(Register::R7 as usize, 7);
         assert_eq!(Register::PC as usize, 8);
-        assert_eq!(Register::COND as usize, 9);
-        assert_eq!(Register::COUNT as usize, 10);
+        assert_eq!(Register::Cond as usize, 9);
+        assert_eq!(Register::Count as usize, 10);
     }
 }

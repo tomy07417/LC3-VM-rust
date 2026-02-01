@@ -11,22 +11,22 @@ use crate::architecture::{CondFlag, Register, VM};
 /// use crate::helper_funcs::update_flags::update_flags;
 ///
 /// let mut vm = VM {
-///     reg: [0; Register::COUNT as usize],
+///     reg: [0; Register::Count as usize],
 ///     memory: [0; 1 << 16],
 /// };
 ///
 /// update_flags(0, &mut vm);
-/// assert_eq!(vm.reg(Register::COND), CondFlag::FlZro as u16);
+/// assert_eq!(vm.reg(Register::Cond), CondFlag::Zro as u16);
 /// ```
 pub fn update_flags(r: u16, vm: &mut VM) {
     if r == 0 {
-        vm.set_reg(Register::COND, CondFlag::FlZro as u16);
+        vm.set_reg(Register::Cond, CondFlag::Zro as u16);
     } else if r >> 15 == 1 {
         // Is negative
-        vm.set_reg(Register::COND, CondFlag::FlNeg as u16);
+        vm.set_reg(Register::Cond, CondFlag::Neg as u16);
     } else {
         // Is positive
-        vm.set_reg(Register::COND, CondFlag::FlPos as u16);
+        vm.set_reg(Register::Cond, CondFlag::Pos as u16);
     }
 }
 
@@ -41,7 +41,7 @@ mod tests {
 
         update_flags(0, &mut vm);
 
-        assert_eq!(vm.reg(Register::COND), CondFlag::FlZro as u16);
+        assert_eq!(vm.reg(Register::Cond), CondFlag::Zro as u16);
     }
 
     #[test]
@@ -51,7 +51,7 @@ mod tests {
 
         update_flags(0x8000, &mut vm);
 
-        assert_eq!(vm.reg(Register::COND), CondFlag::FlNeg as u16);
+        assert_eq!(vm.reg(Register::Cond), CondFlag::Neg as u16);
     }
 
     #[test]
@@ -61,6 +61,6 @@ mod tests {
 
         update_flags(0x0001, &mut vm);
 
-        assert_eq!(vm.reg(Register::COND), CondFlag::FlPos as u16);
+        assert_eq!(vm.reg(Register::Cond), CondFlag::Pos as u16);
     }
 }
