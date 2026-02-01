@@ -7,16 +7,13 @@ use crate::architecture::{CondFlag, Register, VM};
 ///
 /// # Examples
 /// ```no_run
-/// use crate::architecture::{CondFlag, Register, VM};
-/// use crate::helper_funcs::update_flags::update_flags;
+/// use lc3_vm_rust::architecture::{CondFlag, Register, VM};
+/// use lc3_vm_rust::helper_funcs::update_flags;
 ///
-/// let mut vm = VM {
-///     reg: [0; Register::Count as usize],
-///     memory: [0; 1 << 16],
-/// };
+/// let mut vm = VM::new();
 ///
 /// update_flags(0, &mut vm);
-/// assert_eq!(vm.reg(Register::Cond), CondFlag::Zro);
+/// assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Zro.into());
 /// ```
 pub fn update_flags(r: u16, vm: &mut VM) {
     if r == 0 {

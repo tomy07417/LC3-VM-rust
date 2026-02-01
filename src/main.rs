@@ -1,11 +1,5 @@
-mod architecture;
-mod helper_funcs;
-mod op;
-mod run;
-mod step;
-
-use crate::architecture::{CondFlag, Register, START_PC, VM};
-use crate::run::run;
+use lc3_vm_rust::architecture::{CondFlag, Register, START_PC, VM};
+use lc3_vm_rust::run::run;
 
 fn main() {
     let mut vm = VM::new();

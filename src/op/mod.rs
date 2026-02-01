@@ -3,4 +3,4 @@ mod op_codes;
 pub mod store;
 pub mod trap;
 
-pub use op_codes::{OpCode, decode_opcode};
+pub use op_codes::{decode_opcode, OpCode};
