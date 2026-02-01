@@ -1,5 +1,3 @@
-const START_PC: u16 = 0x3000;
-
 /// LC-3 register indices.
 #[repr(usize)]
 #[derive(Copy, Clone, Debug)]
