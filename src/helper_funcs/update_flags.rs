@@ -16,9 +16,11 @@ use crate::architecture::{CondFlag, Register, VM};
 /// assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Zro.into());
 /// ```
 pub fn update_flags(r: u16, vm: &mut VM) {
-    if r == 0 {
+    let val = vm.reg(r.into());
+
+    if val == 0 {
         vm.set_reg(Register::Cond.into(), CondFlag::Zro.into());
-    } else if r >> 15 == 1 {
+    } else if val >> 15 == 1 {
         // Is negative
         vm.set_reg(Register::Cond.into(), CondFlag::Neg.into());
     } else {
@@ -35,6 +37,7 @@ mod tests {
     fn update_flags_sets_zero_for_value_zero() {
         // Zero is a boundary case that must set the Z flag.
         let mut vm = VM::new();
+        vm.set_reg(0, 0);
 
         update_flags(0, &mut vm);
 
@@ -45,8 +48,9 @@ mod tests {
     fn update_flags_sets_negative_for_msb_set() {
         // 0x8000 is the smallest negative 16-bit value (sign bit only).
         let mut vm = VM::new();
+        vm.set_reg(0, 0x8000);
 
-        update_flags(0x8000, &mut vm);
+        update_flags(0, &mut vm);
 
         assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Neg.into());
     }
@@ -55,8 +59,9 @@ mod tests {
     fn update_flags_sets_positive_for_nonzero_msb_clear() {
         // 0x0001 is the smallest positive 16-bit value.
         let mut vm = VM::new();
+        vm.set_reg(0, 0x0001);
 
-        update_flags(0x0001, &mut vm);
+        update_flags(0, &mut vm);
 
         assert_eq!(vm.reg(Register::Cond.into()), CondFlag::Pos.into());
     }
